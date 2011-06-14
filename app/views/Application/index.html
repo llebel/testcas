@@ -1,0 +1,9 @@
+#{extends 'main.html' /}
+#{set title:'Home' /}
+
+<form action="@Application.people()" method="GET">
+   <div>
+      Name: <input type="text" name="uid" value="${flash.uid}" />
+      <input type="submit" value="Chercher" /> 
+   </div>
+</form>

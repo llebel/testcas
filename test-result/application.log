@@ -1,0 +1,4 @@
+08 mars 2011 18:27:02,500 INFO  ~ Starting C:\play-1.1.1\testcas
+08 mars 2011 18:27:02,503 INFO  ~ Module cas is available (C:\play-1.1.1\modules\cas-3.0)
+08 mars 2011 18:27:02,969 WARN  ~ You're running Play! in DEV mode
+08 mars 2011 18:27:03,049 INFO  ~ Listening for HTTP on port 9000 (Waiting a first request to start) ...

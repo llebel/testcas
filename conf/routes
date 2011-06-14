@@ -1,0 +1,20 @@
+# Routes
+# This file defines all application routes (Higher priority routes first)
+# ~~~~
+
+# Home page
+GET     /										Application.index
+GET		/people/{uid}							Application.showPeople
+
+# Import Secure routes
+*		/										module:cas
+GET		/login									modules.cas.SecureCAS.login
+GET		/logout									modules.cas.SecureCAS.logout
+GET		/authenticate							modules.cas.SecureCAS.authenticate
+GET		/pgtcallbackurl							modules.cas.SecureCAS.pgtCallBack
+	
+# Map static resources from the /app/public folder to the /public path
+GET     /public/                                staticDir:public
+
+# Catch all
+*       /{controller}/{action}                  {controller}.{action}
