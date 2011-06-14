@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE beans PUBLIC "-//SPRING//DTD BEAN//EN" "http://www.springsource.org/dtd/spring-beans-2.0.dtd">
+<beans>
+	<bean id="contextSource" class="org.springframework.ldap.core.support.LdapContextSource">
+		<property name="url" value="ldap://ldap_host:10389" />
+		<property name="base" value="dc=company,dc=com" />
+		<property name="userDn" value="uid=admin,ou=system" />
+		<property name="password" value="YOUR_LDAP_PASSWORD_GOES_HERE" />
+	</bean>
+	<bean id="ldapTemplate" class="org.springframework.ldap.core.LdapTemplate">
+		<constructor-arg ref="contextSource" />
+	</bean>
+	<bean id="peopleDao" class="models.PeopleDao">
+		<property name="ldapTemplate" ref="ldapTemplate" />
+	</bean>
+	<bean id="jobsDao" class="models.JobsDao">
+		<property name="ldapTemplate" ref="ldapTemplate" />
+	</bean>
+</beans>
