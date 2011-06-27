@@ -43,6 +43,9 @@ public class Application extends Controller {
 		
 		// Getting LDAP info
 		People person = peopleDao.findByUid(uid);
+		if(person == null) {
+			index();
+		}
 		List<Jobs> jobs = jobsDao.findByPeople(person);
 
 		// Render

@@ -3,7 +3,6 @@ package models;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
 import javax.naming.Name;
 import javax.naming.NamingException;
 import javax.naming.directory.Attribute;
@@ -12,7 +11,7 @@ import javax.naming.directory.BasicAttribute;
 import javax.naming.directory.DirContext;
 import javax.naming.directory.ModificationItem;
 
-import org.springframework.context.ApplicationContext;
+import org.springframework.ldap.NameNotFoundException;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.DistinguishedName;
 import org.springframework.ldap.core.LdapTemplate;
@@ -99,8 +98,17 @@ public class PeopleDao {
 	}
 
 	public People findByUid(String uid) {
+		People people = null;
+		
 		Name dn = buildDn(uid);
-		return (People) ldapTemplate.lookup(dn, new PersonAttributMapper());
+		try {
+			people =  (People) ldapTemplate.lookup(dn, new PersonAttributMapper());
+		}
+		catch (NameNotFoundException e) {
+			Logger.info("No uid '%s' found in the LDAP", uid);
+		}
+		
+		return people;
 	}
 
 	public People findByDn(String dn) {
@@ -192,10 +200,6 @@ public class PeopleDao {
 	public List<People> findByLastName(String displayName) {
 		return findByAttribute(People.LASTNAME_SCHEMA_ATTRIBUTE, displayName);
 	}
-
-//	public static PeopleDao getFromApplicationContext(ApplicationContext ctx) {
-//		return (PeopleDao) ctx.getBean("PeopleDao");
-//	}
 
 	public void ChangePassword(People p) {
 

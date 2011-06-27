@@ -1,21 +1,16 @@
 package models;
 
+import java.util.ArrayList;
 import java.util.List;
 
-import javax.inject.Inject;
-import javax.naming.Name;
-import javax.naming.NamingException;
 import javax.naming.directory.Attributes;
 
-import org.springframework.context.ApplicationContext;
 import org.springframework.ldap.core.AttributesMapper;
 import org.springframework.ldap.core.DistinguishedName;
 import org.springframework.ldap.core.LdapTemplate;
 import org.springframework.ldap.filter.AndFilter;
 import org.springframework.ldap.filter.EqualsFilter;
 import org.springframework.ldap.filter.LikeFilter;
-
-import play.Logger;
 
 /**
  * Classe DAO d'accès aux entités LDAP Jobs
@@ -82,6 +77,11 @@ public class JobsDao {
 	 * @return
 	 */
 	public List<Jobs> findByPeople(People person) {
+		// Can't find jobs for NULL people
+		if(person == null) {
+			return new ArrayList<Jobs>();
+		}
+		
 		// Base DN
 		DistinguishedName dn = new DistinguishedName();
 		dn.add("ou", "Jobs");

@@ -1,15 +1,15 @@
 #{extends 'main.html' /}
 #{set title:'Fiche utilisateur' /}
 
-<form action="@Application.people()" method="GET">
+#{form @Application.showPeople(), method:'GET'}
    <div>
       Name: <input type="text" name="uid" value="${flash.uid}" />
       <input type="submit" value="Chercher" /> 
    </div>
-</form>
+#{/form}
 <hr/>
-<h1>${person ?: 'guest'}!</h1>
-You have ou : ${person.ou}<br />
+<h1>${person ?: 'guest'}</h1>
+You have ou : ${person?.ou}<br />
 #{if jobs.size() > 0}
 	You have jobs :
 	<ul>
