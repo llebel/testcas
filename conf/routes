@@ -5,6 +5,7 @@
 # Home page
 GET     /										Application.index
 GET		/people/{uid}							Application.showPeople
+GET		/people									Application.showPeople
 
 # Import Secure routes
 *		/										module:cas
@@ -17,4 +18,4 @@ GET		/pgtcallbackurl							modules.cas.SecureCAS.pgtCallBack
 GET     /public/                                staticDir:public
 
 # Catch all
-*       /{controller}/{action}                  {controller}.{action}
+#*       /{controller}/{action}                  {controller}.{action}
